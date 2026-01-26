@@ -1,0 +1,122 @@
+﻿<Window x:Class="ElinModManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dd="urn:gong-wpf-dragdrop"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:ElinModManager.ViewModel"
+        xmlns:res="clr-namespace:ElinModManager.Resources"
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
+        mc:Ignorable="d"
+        Title="{Binding Path=[Label_MainWindow], Source={x:Static res:LocalisationService.Instance}}"
+        Height="500"
+        Width="800"
+        Style="{StaticResource DarkBg}">
+
+    <!-- Main Window -->
+    <DockPanel>
+        <!-- Top Bar menu -->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem>
+                <MenuItem.Header>
+                    <TextBlock Text="{Binding Path=[Label_File], Source={x:Static res:LocalisationService.Instance}}"/>
+                </MenuItem.Header>
+                <MenuItem>
+                    <MenuItem.Header>
+                        <TextBlock Text="{Binding Path=[Label_Export_Order], Source={x:Static res:LocalisationService.Instance}}"/>
+                    </MenuItem.Header>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem>
+                <MenuItem.Header>
+                    <TextBlock Text="{Binding Path=[Label_Settings], Source={x:Static res:LocalisationService.Instance}}"/>
+                </MenuItem.Header>
+                <MenuItem Command="{Binding ShowSettingsCommand}">
+                    <MenuItem.Header>
+                        <TextBlock Text="{Binding Path=[Label_Open_Settings], Source={x:Static res:LocalisationService.Instance}}"/>
+                    </MenuItem.Header>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem>
+                <MenuItem.Header>
+                    <TextBlock Text="{Binding Path=[Label_Language], Source={x:Static res:LocalisationService.Instance}}"/>
+                </MenuItem.Header>
+                <MenuItem Command="{Binding SwitchEnglishCommand}" >
+                    <MenuItem.Header>
+                        <TextBlock Text="{Binding Path=[Label_English], Source={x:Static res:LocalisationService.Instance}}"/>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem Command="{Binding SwitchJapaneseCommand}" >
+                    <MenuItem.Header>
+                        <TextBlock Text="{Binding Path=[Label_Japanese], Source={x:Static res:LocalisationService.Instance}}"/>
+                    </MenuItem.Header>
+                </MenuItem>
+            </MenuItem>
+            <Separator />
+            <MenuItem Header="{Binding Path=[Label_Export_Order], Source={x:Static res:LocalisationService.Instance}}"
+                      Command="{Binding ExportOrderCommand}"
+                      Icon="{DynamicResource IconSave}"
+                      Style="{StaticResource PopoutHeaderMenuItemStyle}"
+                      >
+            </MenuItem>
+            <MenuItem Header="{Binding Path=[Label_Refresh], Source={x:Static res:LocalisationService.Instance}}"
+                      Command="{Binding RefreshCommand}"
+                      Icon="{DynamicResource IconRefresh}"
+                      Style="{StaticResource PopoutHeaderMenuItemStyle}"
+                      >
+            </MenuItem>
+        </Menu>
+        <!-- Load Order thing -->
+        <Grid Margin="10, 5" VerticalAlignment="Top" Height="Auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ListView ItemsSource="{Binding ActiveMods}"
+                         Margin="10, 5"
+                         Grid.Row="0"
+                         Grid.Column="0"
+                         dd:DragDrop.IsDragSource="True"
+                         dd:DragDrop.IsDropTarget="True">
+
+                <ListView.View>
+                    <GridView ColumnHeaderContainerStyle="{StaticResource DarkBg}">
+                        <GridViewColumn Header="{Binding Path=[Label_ModTitle], Source={x:Static res:LocalisationService.Instance}}"
+                            DisplayMemberBinding="{Binding Title}"
+                            Width="200"/>
+                        <GridViewColumn Header="{Binding Path=[Label_ModAuthor], Source={x:Static res:LocalisationService.Instance}}"
+                            DisplayMemberBinding="{Binding Author}"
+                            Width="100"/>
+                        <GridViewColumn Header="{Binding Path=[Label_ModVersion], Source={x:Static res:LocalisationService.Instance}}"
+                            DisplayMemberBinding="{Binding Version}"
+                            Width="100"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <ListView ItemsSource="{Binding InactiveMods}"
+                         Margin="10, 5"
+                         Grid.Row="0"
+                         Grid.Column="1"
+                         dd:DragDrop.IsDragSource="True"
+                         dd:DragDrop.IsDropTarget="True">
+                <ListView.View>
+                    <GridView ColumnHeaderContainerStyle="{StaticResource DarkBg}">
+                        <GridViewColumn Header="{Binding Path=[Label_ModTitle], Source={x:Static res:LocalisationService.Instance}}"
+                            DisplayMemberBinding="{Binding Title}"
+                            Width="200"/>
+                        <GridViewColumn Header="{Binding Path=[Label_ModAuthor], Source={x:Static res:LocalisationService.Instance}}"
+                            DisplayMemberBinding="{Binding Author}"
+                            Width="100"/>
+                        <GridViewColumn Header="{Binding Path=[Label_ModVersion], Source={x:Static res:LocalisationService.Instance}}"
+                            DisplayMemberBinding="{Binding Version}"
+                            Width="100"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </DockPanel>
+</Window>

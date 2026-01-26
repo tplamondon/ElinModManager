@@ -1,0 +1,59 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="IconColour">#FFDDDDDD</Color>
+    <SolidColorBrush x:Key="IconBrush" Color="{StaticResource IconColour}" />
+    
+    
+    <!-- chatgpt helped with this code -->
+    
+    <!-- Base style for all MDL2 icons -->
+    <Style x:Key="Mdl2IconBase" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Foreground"  Value="{StaticResource IconBrush}" />
+    </Style>
+
+    
+    <!-- Individual icons -->
+    <!-- Refer to: https://learn.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.symbol?view=winrt-22621 -->
+    <TextBlock
+        x:Key="IconSave"
+        Style="{StaticResource Mdl2IconBase}"
+        Text="&#xE105;"/>
+
+    <TextBlock
+        x:Key="IconPlay"
+        Style="{StaticResource Mdl2IconBase}"
+        Text="&#xE102;"/>
+
+    <TextBlock
+        x:Key="IconClear"
+        Style="{StaticResource Mdl2IconBase}"
+        Text="&#xE106;"/>
+
+    <TextBlock
+        x:Key="IconDelete"
+        Style="{StaticResource Mdl2IconBase}"
+        Text="&#xE107;"/>
+
+    <TextBlock
+        x:Key="IconCancel"
+        Style="{StaticResource Mdl2IconBase}"
+        Text="&#xE10A;"/>
+
+    <TextBlock
+        x:Key="IconAccept"
+        Style="{StaticResource Mdl2IconBase}"
+        Text="&#xE10B;"/>
+
+    <TextBlock
+        x:Key="IconUndo"
+        Style="{StaticResource Mdl2IconBase}"
+        Text="&#xE10E;"/>
+
+    <TextBlock
+        x:Key="IconRefresh"
+        Style="{StaticResource Mdl2IconBase}"
+        Text="&#xE149;"/>
+</ResourceDictionary>

@@ -1,0 +1,66 @@
+﻿<Window x:Class="ElinModManager.Views.SettingsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dd="urn:gong-wpf-dragdrop"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:ElinModManager.ViewModel"
+        xmlns:res="clr-namespace:ElinModManager.Resources"
+        d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel}"
+        mc:Ignorable="d"
+        Title="SettingsView" Height="800" Width="600"
+        Style="{StaticResource LightBg}">
+    
+    <!-- Main Window -->
+    <DockPanel>
+        <!-- Top Bar menu -->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="{Binding Path=[Label_SaveSettings], Source={x:Static res:LocalisationService.Instance}}"
+                      Icon="{DynamicResource IconSave}"
+                      Style="{StaticResource PopoutHeaderMenuItemStyle}"
+                      Command="{Binding SaveSettingsCommand}"
+                      >
+            </MenuItem>
+        </Menu>
+        <StackPanel>
+            <Grid Margin="10, 5"
+                  Style="{StaticResource PaddedRowsDark}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Row 0 -->
+                <TextBlock Text="{Binding Path=[Label_Game_Path], Source={x:Static res:LocalisationService.Instance}}" 
+                           Grid.Row="0"
+                           Grid.Column="0"/>
+                <Border Grid.Column="1" 
+                        Grid.Row="0">
+                    <TextBlock Text="{Binding SettingsObject.GameExePath}" >
+                        <TextBlock.InputBindings>
+                            <MouseBinding Command="{Binding SelectExeCommand}" 
+                                          MouseAction="LeftClick" />
+                        </TextBlock.InputBindings>
+                    </TextBlock>
+                </Border>
+                <!-- Row 1 -->
+                <TextBlock Text="{Binding Path=[Label_DefaultLanguage], Source={x:Static res:LocalisationService.Instance}}" 
+                           Grid.Row="1" 
+                           Grid.Column="0" />
+                <ComboBox Grid.Row="1"
+                          Grid.Column="1"
+                          Style="{StaticResource DarkComboBox}"
+                          ItemContainerStyle="{StaticResource DarkComboBoxItem}"
+                          ItemsSource="{Binding AvailableLanguages}"
+                          SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}">
+                    
+                </ComboBox>
+            </Grid>
+        </StackPanel>
+    </DockPanel>
+</Window>

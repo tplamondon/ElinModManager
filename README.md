@@ -9,6 +9,12 @@ UI and Colours based on [LaughingLeaders BG3ModManager](https://github.com/Laugh
 
 # How to use
 
+## Setup
+
+1. Run the game at least once.
+2. Make sure you have [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.15-windows-x64-installer) and [the latest C++ redistributable](https://aka.ms/vs/17/release/vc_redist.x64.exe) installed.
+3. Extract the latest release somewhere on your computer. Don't extract it to a protect folder please (such as program files).
+
 ## Settings
 
 First you should adjust your settings.

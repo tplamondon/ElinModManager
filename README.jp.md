@@ -9,6 +9,12 @@
 
 # 使い方
 
+## セットアップ
+
+1. ゲームを少なくとも1回起動してください。
+2. [.NET 8.0](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.15-windows-x64-installer)と[最貧C++ redistributable](https://aka.ms/vs/17/release/vc_redist.x64.exe)インストール済みを確認してください。
+3. 最新リリースをPCにどこか展開してください。保護されたフォルダー（プログラムファイルなど）に展開しないでください。
+
 ## 設定
 
 まずは設定を調整してください。

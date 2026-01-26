@@ -70,6 +70,24 @@ namespace ElinModManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        internal static string Label_Disabled {
+            get {
+                return ResourceManager.GetString("Label_Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabled.
+        /// </summary>
+        internal static string Label_Enabled {
+            get {
+                return ResourceManager.GetString("Label_Enabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
         internal static string Label_English {

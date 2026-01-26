@@ -165,4 +165,10 @@
   <data name="Label_SettingsWindow" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="Label_Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Label_Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
 </root>

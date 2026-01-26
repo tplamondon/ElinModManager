@@ -32,3 +32,9 @@ To order your mods, just drag and drop them how you want them to be ordered. Mod
 and mods on the right side will be inactive.
 
 Once you have ordered them, pressing the save icon will export your load order.
+
+# Contributing.
+
+If you wish to contribute, you can make a pull request or create an issue on GitHub.
+
+Regarding English labels, only Canadian or UK spelling will be accepted.

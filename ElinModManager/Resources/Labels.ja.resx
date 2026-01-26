@@ -162,4 +162,7 @@
   <data name="Label_ModAuthor" xml:space="preserve">
     <value>作者</value>
   </data>
+  <data name="Label_SettingsWindow" xml:space="preserve">
+    <value>&#x8;設定</value>
+  </data>
 </root>

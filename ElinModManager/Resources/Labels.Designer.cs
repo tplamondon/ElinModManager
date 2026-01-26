@@ -194,5 +194,14 @@ namespace ElinModManager.Resources {
                 return ResourceManager.GetString("Label_Settings", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string Label_SettingsWindow {
+            get {
+                return ResourceManager.GetString("Label_SettingsWindow", resourceCulture);
+            }
+        }
     }
 }

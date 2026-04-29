@@ -51,10 +51,23 @@
                     </TextBlock>
                 </Border>
                 <!-- Row 1 -->
+                <TextBlock Text="{Binding Path=[Label_Workshop_Path], Source={x:Static res:LocalisationService.Instance}}" 
+                           Grid.Row="1"
+                           Grid.Column="0"/>
+                <Border Grid.Column="1" 
+                        Grid.Row="1">
+                    <TextBlock Text="{Binding SettingsObject.GameWorkshopPath}" >
+                        <TextBlock.InputBindings>
+                            <MouseBinding Command="{Binding SelectWorkshopCommand}" 
+                                          MouseAction="LeftClick" />
+                        </TextBlock.InputBindings>
+                    </TextBlock>
+                </Border>
+                <!-- Row 2 -->
                 <TextBlock Text="{Binding Path=[Label_DefaultLanguage], Source={x:Static res:LocalisationService.Instance}}" 
-                           Grid.Row="1" 
+                           Grid.Row="2" 
                            Grid.Column="0" />
-                <ComboBox Grid.Row="1"
+                <ComboBox Grid.Row="2"
                           Grid.Column="1"
                           Style="{StaticResource DarkComboBox}"
                           ItemContainerStyle="{StaticResource DarkComboBoxItem}"

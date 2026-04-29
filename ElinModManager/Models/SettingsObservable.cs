@@ -12,11 +12,14 @@ namespace ElinModManager.Models
         [ObservableProperty]
         private static string? gameExePath;
         [ObservableProperty]
+        private static string? gameWorkshopPath;
+        [ObservableProperty]
         private static string? language;
         
         public SettingsObservable()
         {
             gameExePath = Settings.GameExePath;
+            gameWorkshopPath = Settings.GameWorkshopPath;
             language = Settings.Language;
         }
         /// <summary>
@@ -25,6 +28,7 @@ namespace ElinModManager.Models
         public void Refresh()
         {
             gameExePath = Settings.GameExePath;
+            gameWorkshopPath = Settings.GameWorkshopPath;
             language = Settings.Language;
         }
 
@@ -34,6 +38,7 @@ namespace ElinModManager.Models
         public void SaveSettings()
         {
             Settings.GameExePath = gameExePath;
+            Settings.GameWorkshopPath = gameWorkshopPath;
             Settings.Language = language;
             Settings.SaveSettings();
         }

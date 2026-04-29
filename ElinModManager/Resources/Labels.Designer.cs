@@ -221,5 +221,14 @@ namespace ElinModManager.Resources {
                 return ResourceManager.GetString("Label_SettingsWindow", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steam Workshop Path.
+        /// </summary>
+        internal static string Label_Workshop_Path {
+            get {
+                return ResourceManager.GetString("Label_Workshop_Path", resourceCulture);
+            }
+        }
     }
 }

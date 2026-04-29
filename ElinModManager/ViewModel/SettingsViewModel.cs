@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Resources;
 using System.Runtime.CompilerServices;
@@ -23,6 +24,7 @@ namespace ElinModManager.ViewModel
 
         public ICommand SaveSettingsCommand {  get; set; }
         public ICommand SelectExeCommand { get; set; }
+        public ICommand SelectWorkshopCommand { get; set; }
 
         public static ObservableCollection<string?> AvailableLanguages { get; set; } = new();
         private string? _selectedLanguage;
@@ -45,6 +47,7 @@ namespace ElinModManager.ViewModel
             SettingsObject = new();
             SaveSettingsCommand = new RelayCommand(SaveSettings);
             SelectExeCommand = new RelayCommand(SelectExe);
+            SelectWorkshopCommand = new RelayCommand(SelectWorkshopPath);
             SelectedLanguage = Settings.Language;
             AvailableLanguages = new()
             {
@@ -86,6 +89,41 @@ namespace ElinModManager.ViewModel
                 //can do stuff now
                 string fileName = dialog.FileName;
                 SettingsObject.GameExePath = fileName;
+
+                //attempt to get workshop path from exe path
+                var filePath = new FileInfo(fileName)?.Directory;
+                if(filePath!= null)
+                {
+                    var steamapps = filePath?.Parent?.Parent;
+                    if(steamapps != null)
+                    {
+                        var _workshopPath = steamapps.GetDirectories("Workshop").FirstOrDefault()?.GetDirectories("content").FirstOrDefault()?.GetDirectories("2135150").FirstOrDefault()?.FullName;
+                        if(_workshopPath != null)
+                        {
+                            SettingsObject.GameWorkshopPath = _workshopPath;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        private void SelectWorkshopPath()
+        {
+            var dialog = new Microsoft.Win32.OpenFolderDialog();
+            if(SettingsObject.GameWorkshopPath != null)
+            {
+                dialog.InitialDirectory = SettingsObject.GameWorkshopPath;
+            }
+            // show open file dialog box
+            bool? result = dialog.ShowDialog();
+
+            //process open file dialog box results
+            if (result == true)
+            {
+                //can do stuff now
+                string fileName = dialog.FolderName;
+                SettingsObject.GameWorkshopPath = fileName;
             }
         }
     }

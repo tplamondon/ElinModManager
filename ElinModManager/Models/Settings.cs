@@ -24,6 +24,7 @@ namespace ElinModManager.Models
         /// </summary>
         public static string? GameExePath;
         public static string? Language;
+        public static string? GameWorkshopPath;
         public static string? LoadOrderFile { 
             get
             {
@@ -58,6 +59,7 @@ namespace ElinModManager.Models
                 if (deserialised != null)
                 {
                     GameExePath = deserialised.GameExePath;
+                    GameWorkshopPath = deserialised.GameWorkshopPath;
                     Language = deserialised.Language;
                 }
             }
@@ -79,6 +81,7 @@ namespace ElinModManager.Models
             SettingsJson settingsJson = new()
             {
                 GameExePath = GameExePath,
+                GameWorkshopPath = GameWorkshopPath,
                 Language = Language,
             };
             JObject jsonObject = (JObject)JToken.FromObject(settingsJson);
@@ -92,6 +95,7 @@ namespace ElinModManager.Models
         private class SettingsJson
         {
             public string? GameExePath;
+            public string? GameWorkshopPath;
             public string? Language;
         }
     }

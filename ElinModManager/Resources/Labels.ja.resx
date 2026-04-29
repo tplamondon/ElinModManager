@@ -171,4 +171,7 @@
   <data name="Label_Disabled" xml:space="preserve">
     <value>無効</value>
   </data>
+  <data name="Label_Workshop_Path" xml:space="preserve">
+    <value>Steamのワークショップのパス</value>
+  </data>
 </root>

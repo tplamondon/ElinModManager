@@ -171,4 +171,7 @@
   <data name="Label_Disabled" xml:space="preserve">
     <value>Disabled</value>
   </data>
+  <data name="Label_Workshop_Path" xml:space="preserve">
+    <value>Steam Workshop Path</value>
+  </data>
 </root>

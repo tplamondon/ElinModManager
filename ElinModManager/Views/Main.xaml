@@ -82,6 +82,7 @@
                          dd:DragDrop.IsDragSource="True"
                          dd:DragDrop.IsDropTarget="True">
 
+
                 <ListView.View>
                     <GridView ColumnHeaderContainerStyle="{StaticResource DarkBg}">
                         <GridViewColumn Header="{Binding Path=[Label_ModTitle], Source={x:Static res:LocalisationService.Instance}}"

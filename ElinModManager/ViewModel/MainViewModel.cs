@@ -20,14 +20,18 @@ namespace ElinModManager.ViewModel
     public class MainViewModel
     {
 
-        public static ObservableCollection<Mod> ActiveMods { get; set; } = new ObservableCollection<Mod>();
-        public static ObservableCollection<Mod> InactiveMods { get; set; } = new ObservableCollection<Mod>();
+        public ObservableCollection<Mod> ActiveMods { get; set; } = new ObservableCollection<Mod>();
+        public ObservableCollection<Mod> InactiveMods { get; set; } = new ObservableCollection<Mod>();
 
         public ICommand ShowSettingsCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
         public ICommand SwitchEnglishCommand { get; set; }
         public ICommand SwitchJapaneseCommand { get; set; }
         public ICommand ExportOrderCommand { get; set; }
+
+        
+        //context menu commands
+        public ICommand OpenModFolderCommand { get; set; }
 
         public MainViewModel()
         {
@@ -37,6 +41,8 @@ namespace ElinModManager.ViewModel
             SwitchJapaneseCommand = new RelayCommand(StaticCommands.ChangeToJapanese);
             ExportOrderCommand = new RelayCommand(ExportOrder);
             RefreshCommand = new RelayCommand(Refresh);
+
+            OpenModFolderCommand = new RelayCommand<Mod?>(OpenModFolder);
 
             LoadMods();
 
@@ -68,7 +74,7 @@ namespace ElinModManager.ViewModel
         }
 
 
-        private static void ExportOrder()
+        private void ExportOrder()
         {
             //loop through ActiveMods then InactiveMods
             if(Settings.LoadOrderFile != null)
@@ -89,7 +95,7 @@ namespace ElinModManager.ViewModel
             
         }
 
-        private static void AddMod(Mod mod, bool active)
+        private void AddMod(Mod mod, bool active)
         {
             if (active)
             {
@@ -106,7 +112,7 @@ namespace ElinModManager.ViewModel
         /// </summary>
         /// <param name="directory"></param>
         /// <returns></returns>
-        private static Mod? GetModInfo(string directory)
+        private Mod? GetModInfo(string directory)
         {
             if(!File.Exists($"{directory}\\package.xml")) { return null; }
 
@@ -166,7 +172,7 @@ namespace ElinModManager.ViewModel
         /// <summary>
         ///  Load all the mods
         /// </summary>
-        private static void LoadMods()
+        private void LoadMods()
         {
             //helper local methods
             void LoadFromLoadOrderFile()
@@ -257,5 +263,11 @@ namespace ElinModManager.ViewModel
             LoadUnloadedLocalMods();
         }
 
+
+        // Open Mod Commands
+        private void OpenModFolder(Mod? mod)
+        {
+            Console.WriteLine(mod?.Author);
+        }
     }
 }

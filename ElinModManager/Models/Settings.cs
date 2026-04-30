@@ -24,7 +24,13 @@ namespace ElinModManager.Models
         /// </summary>
         public static string? GameExePath;
         public static string? Language;
+        /// <summary>
+        /// Path to steam workshop
+        /// </summary>
         public static string? GameWorkshopPath;
+        /// <summary>
+        /// Path to load order file
+        /// </summary>
         public static string? LoadOrderFile { 
             get
             {
@@ -38,6 +44,21 @@ namespace ElinModManager.Models
                 }
                 return null;
             }  
+        }
+        public static string? GameLocalModsPath
+        {
+            get
+            {
+                if(GameExePath != null)
+                {
+                    string? fullPath = new FileInfo(GameExePath)?.Directory?.FullName;
+                    if (fullPath != null)
+                    {
+                        return $"{fullPath}\\Package";
+                    }
+                }
+                return null;
+            }
         }
 
 

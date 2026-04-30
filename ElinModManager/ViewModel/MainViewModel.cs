@@ -168,30 +168,93 @@ namespace ElinModManager.ViewModel
         /// </summary>
         private static void LoadMods()
         {
+            //helper local methods
+            void LoadFromLoadOrderFile()
+            {
+                if (Settings.GameExePath != null)
+                {
+                    if (File.Exists(Settings.LoadOrderFile))
+                    {
+                        // load order exists and is found
+                        var lines = File.ReadLines(Settings.LoadOrderFile);
+                        foreach (var line in lines)
+                        {
+                            //splitLine[0] is path, splitLine[1] is if enabled
+                            var splitLine = line.Split(',');
+                            Mod? mod = GetModInfo(splitLine[0]);
+                            bool isActive = splitLine[1] == "1";
+
+                            if (mod == null) continue;
+
+                            AddMod(mod, isActive);
+                        }
+
+                    }
+                }
+            }
+            void LoadUnloadedWorkshopMods()
+            {
+                if (Settings.GameWorkshopPath != null)
+                {
+                    if (Directory.Exists(Settings.GameWorkshopPath))
+                    {
+                        var directories = Directory.GetDirectories(Settings.GameWorkshopPath);
+                        foreach (var directory in directories)
+                        {
+                            //check if mod is already loaded from load order file
+                            if (ActiveMods.Any(m => m.Directory == directory) || InactiveMods.Any(m => m.Directory == directory))
+                            {
+                                continue;
+                            }
+                            Mod? mod = GetModInfo(directory);
+                            if (mod != null)
+                            {
+                                AddMod(mod, false);
+                            }
+                        }
+                    }
+                }
+            }
+            void LoadUnloadedLocalMods()
+            {
+                //default game mods that come with the game. Don't include these in load order
+                List<string> GAME_MODS = new List<string>() { "_Elona", "_Lang_Chinese", "Mod_Slot" };
+                if (Settings.GameLocalModsPath != null && Directory.Exists(Settings.GameLocalModsPath))
+                {
+                    var directories = Directory.EnumerateDirectories(Settings.GameLocalModsPath);
+                    foreach (var directory in directories)
+                    {
+                        //get folder name of each mod for checking "mods" we don't wnat to include
+                        var folderName = Path.GetFileName(directory);
+                        if (GAME_MODS.Contains(folderName))
+                        {
+                            continue;
+                        }
+
+                        //check if mod is already loaded from load order file
+                        if (ActiveMods.Any(m => m.Directory == directory) || InactiveMods.Any(m => m.Directory == directory))
+                        {
+                            continue;
+                        }
+                        Mod? mod = GetModInfo(directory);
+                        if (mod != null)
+                        {
+                            AddMod(mod, false);
+                        }
+                    }
+                }
+            }
+            
             //clear this out to reset
             ActiveMods.Clear();
             InactiveMods.Clear();
 
-            if (Settings.GameExePath != null)
-            {
-                if (File.Exists(Settings.LoadOrderFile))
-                {
-                    // load order exists and is found
-                    var lines = File.ReadLines(Settings.LoadOrderFile);
-                    foreach (var line in lines)
-                    {
-                        //splitLine[0] is path, splitLine[1] is if enabled
-                        var splitLine = line.Split(',');
-                        Mod? mod = GetModInfo(splitLine[0]);
-                        bool isActive = splitLine[1] == "1";
-
-                        if(mod == null) continue;
-
-                        AddMod(mod, isActive);
-                    }
-                    
-                }
-            }
+            //get load order file mods first
+            LoadFromLoadOrderFile();
+            //load workshop mods that haven't been put in load order file (usually newly subscribed mods and haven't rerun game since)
+            LoadUnloadedWorkshopMods();
+            //load local mods not in load order file (usually newly downloaded or created mods)
+            LoadUnloadedLocalMods();
         }
 
     }

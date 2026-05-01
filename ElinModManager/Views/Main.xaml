@@ -67,7 +67,7 @@
             </MenuItem>
         </Menu>
 
-        <!-- Load Order thing -->
+        <!-- Load Order Lists -->
         <Grid Margin="10, 5" VerticalAlignment="Top" Height="Auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -79,30 +79,30 @@
             
             <!-- Active Mods-->
             <ListView ItemsSource="{Binding ActiveMods}"
-                         x:Name="ActiveModsListView"
-                         Margin="10, 5"
-                         Grid.Row="0"
-                         Grid.Column="0"
-                         dd:DragDrop.IsDragSource="True"
-                         dd:DragDrop.IsDropTarget="True">
+                      x:Name="ActiveModsListView"
+                      Margin="10, 5"
+                      Grid.Row="0"
+                      Grid.Column="0"
+                      dd:DragDrop.IsDragSource="True"
+                      dd:DragDrop.IsDropTarget="True">
 
 
                 <ListView.View>
                     <GridView ColumnHeaderContainerStyle="{StaticResource DarkBg}">
                         <GridViewColumn Header="{Binding Path=[Label_ModTitle], Source={x:Static res:LocalisationService.Instance}}"
-                            DisplayMemberBinding="{Binding Title}"
-                            Width="200"/>
+                                        DisplayMemberBinding="{Binding Title}"
+                                        Width="200"/>
                         <GridViewColumn Header="{Binding Path=[Label_ModAuthor], Source={x:Static res:LocalisationService.Instance}}"
-                            DisplayMemberBinding="{Binding Author}"
-                            Width="100"/>
+                                        DisplayMemberBinding="{Binding Author}"
+                                        Width="100"/>
                         <GridViewColumn Header="{Binding Path=[Label_ModVersion], Source={x:Static res:LocalisationService.Instance}}"
-                            DisplayMemberBinding="{Binding Version}"
-                            Width="100"/>
+                                        DisplayMemberBinding="{Binding Version}"
+                                        Width="100"/>
                     </GridView>
                 </ListView.View>
 
 
-
+                <!-- Context Menu -->
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <!-- Expose the view model (ListView.DataContext) on the ListViewItem.Tag so the ContextMenu can reach it -->
@@ -122,25 +122,27 @@
 
             <!-- Inactive Mods -->
             <ListView ItemsSource="{Binding InactiveMods}"
-                         x:Name="InactiveModsListView"
-                         Margin="10, 5"
-                         Grid.Row="0"
-                         Grid.Column="1"
-                         dd:DragDrop.IsDragSource="True"
-                         dd:DragDrop.IsDropTarget="True">
+                      x:Name="InactiveModsListView"
+                      Margin="10, 5"
+                      Grid.Row="0"
+                      Grid.Column="1"
+                      dd:DragDrop.IsDragSource="True"
+                      dd:DragDrop.IsDropTarget="True">
                 <ListView.View>
                     <GridView ColumnHeaderContainerStyle="{StaticResource DarkBg}">
                         <GridViewColumn Header="{Binding Path=[Label_ModTitle], Source={x:Static res:LocalisationService.Instance}}"
-                            DisplayMemberBinding="{Binding Title}"
-                            Width="200"/>
+                                        DisplayMemberBinding="{Binding Title}"
+                                        Width="200"/>
                         <GridViewColumn Header="{Binding Path=[Label_ModAuthor], Source={x:Static res:LocalisationService.Instance}}"
-                            DisplayMemberBinding="{Binding Author}"
-                            Width="100"/>
+                                        DisplayMemberBinding="{Binding Author}"
+                                        Width="100"/>
                         <GridViewColumn Header="{Binding Path=[Label_ModVersion], Source={x:Static res:LocalisationService.Instance}}"
-                            DisplayMemberBinding="{Binding Version}"
-                            Width="100"/>
+                                        DisplayMemberBinding="{Binding Version}"
+                                        Width="100"/>
                     </GridView>
                 </ListView.View>
+
+                <!-- Context Menu -->
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <!-- Expose the view model (ListView.DataContext) on the ListViewItem.Tag so the ContextMenu can reach it -->
@@ -149,8 +151,8 @@
                             <Setter.Value>
                                 <ContextMenu>
                                     <MenuItem Header="Open folder"
-                        Command="{Binding PlacementTarget.Tag.OpenModFolderCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
-                        CommandParameter="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                                              Command="{Binding PlacementTarget.Tag.OpenModFolderCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                              CommandParameter="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
                                 </ContextMenu>
                             </Setter.Value>
                         </Setter>

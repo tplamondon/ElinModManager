@@ -174,4 +174,13 @@
   <data name="Label_Workshop_Path" xml:space="preserve">
     <value>Steamのワークショップのパス</value>
   </data>
+  <data name="Label_Open_Mod_Folder" xml:space="preserve">
+    <value>モッドのフォルダに行く</value>
+  </data>
+  <data name="Label_Open_Workshop_Browser" xml:space="preserve">
+    <value>ワークショップのページに行く（ブラウザ）</value>
+  </data>
+  <data name="Label_Open_Workshop_Steam" xml:space="preserve">
+    <value>ワークショップのページに行く（Steam）</value>
+  </data>
 </root>

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using ElinModManager.Commands;
+using ElinModManager.HelperFunctions;
 using ElinModManager.Models;
 using ElinModManager.Resources;
 using ElinModManager.Views;
@@ -29,9 +30,11 @@ namespace ElinModManager.ViewModel
         public ICommand SwitchJapaneseCommand { get; set; }
         public ICommand ExportOrderCommand { get; set; }
 
-        
+
         //context menu commands
         public ICommand OpenModFolderCommand { get; set; }
+        public ICommand OpenModWorkshopBrowserCommand { get; set; }
+        public ICommand OpenModWorkshopSteamCommand { get; set; }
 
         public MainViewModel()
         {
@@ -41,13 +44,16 @@ namespace ElinModManager.ViewModel
             SwitchJapaneseCommand = new RelayCommand(StaticCommands.ChangeToJapanese);
             ExportOrderCommand = new RelayCommand(ExportOrder);
             RefreshCommand = new RelayCommand(Refresh);
-
+            //context menu commands
             OpenModFolderCommand = new RelayCommand<Mod?>(OpenModFolder);
+            OpenModWorkshopBrowserCommand = new RelayCommand<Mod?>(OpenModWorkshopBrowser);
+            OpenModWorkshopSteamCommand = new RelayCommand<Mod?>(OpenModWorkshopSteam);
 
             LoadMods();
 
             // Setup language from settings
-            if(Settings.Language == Labels.ResourceManager.GetString("Label_English", new CultureInfo("en"))){
+            if (Settings.Language == Labels.ResourceManager.GetString("Label_English", new CultureInfo("en")))
+            {
                 LocalisationService.Instance.ChangeCulture("en");
             }
             else if (Settings.Language == Labels.ResourceManager.GetString("Label_Japanese", new CultureInfo("ja")))
@@ -77,22 +83,22 @@ namespace ElinModManager.ViewModel
         private void ExportOrder()
         {
             //loop through ActiveMods then InactiveMods
-            if(Settings.LoadOrderFile != null)
+            if (Settings.LoadOrderFile != null)
             {
-                using var file = new StreamWriter(Settings.LoadOrderFile,false);
-                foreach(var active in ActiveMods)
+                using var file = new StreamWriter(Settings.LoadOrderFile, false);
+                foreach (var active in ActiveMods)
                 {
                     string text = $"{active.Directory},1";
                     file.WriteLine(text);
                 }
-                foreach(var inactive in InactiveMods)
+                foreach (var inactive in InactiveMods)
                 {
                     string text = $"{inactive.Directory},0";
                     file.WriteLine(text);
                 }
                 file.Close();
             }
-            
+
         }
 
         private void AddMod(Mod mod, bool active)
@@ -114,22 +120,22 @@ namespace ElinModManager.ViewModel
         /// <returns></returns>
         private Mod? GetModInfo(string directory)
         {
-            if(!File.Exists($"{directory}\\package.xml")) { return null; }
+            if (!File.Exists($"{directory}\\package.xml")) { return null; }
 
             XDocument modPackage = XDocument.Load($"{directory}\\package.xml");
 
-            if (modPackage == null){ return null; }
+            if (modPackage == null) { return null; }
 
             Mod? mod = null;
-            foreach(var metaNode in modPackage.Elements())
+            foreach (var metaNode in modPackage.Elements())
             {
-                if(metaNode.Name.LocalName.ToLower() == "meta")
+                if (metaNode.Name.LocalName.ToLower() == "meta")
                 {
                     //found a package.xml with the first element being <meta> which matches expected format. We can parse the mod now
                     mod = new Mod();
                     mod.Directory = directory;
                     //go through each element and assign values to appropriate things in object
-                    foreach(var node in metaNode.Elements())
+                    foreach (var node in metaNode.Elements())
                     {
                         switch (node.Name.LocalName.ToLower())
                         {
@@ -250,7 +256,7 @@ namespace ElinModManager.ViewModel
                     }
                 }
             }
-            
+
             //clear this out to reset
             ActiveMods.Clear();
             InactiveMods.Clear();
@@ -267,7 +273,63 @@ namespace ElinModManager.ViewModel
         // Open Mod Commands
         private void OpenModFolder(Mod? mod)
         {
-            Console.WriteLine(mod?.Author);
+            if (mod?.Directory != null && Directory.Exists(mod.Directory))
+            {
+                System.Diagnostics.Process.Start("explorer.exe", mod.Directory);
+            }
         }
+        private void OpenModWorkshopBrowser(Mod? mod)
+        {
+            if (mod?.Directory != null && Settings.GameWorkshopPath != null)
+            {
+                //only do this if the mod is in the workshop directory (can't open browser page for local mods)
+                if (mod.Directory.IsSubPathOf(Settings.GameWorkshopPath))
+                {
+                    //normalise the directory and workshop path
+                    string normalisedDirectory = mod.Directory.Replace('/', '\\').WithEnding("\\").Trim('\\');
+                    string normalisedWorkshopPath = Settings.GameWorkshopPath.Replace('/', '\\').WithEnding("\\").Trim('\\');
+                    //grab workshop id (should be last bit of numbers from path excluding the workshop path)
+                    string workshopId = normalisedDirectory.Replace(normalisedWorkshopPath, "").Trim('\\');
+
+                    //open browser to workshop page for mod
+                    //should be default browser of user
+                    string url = $"https://steamcommunity.com/sharedfiles/filedetails/?id={workshopId}";
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = url,
+                        UseShellExecute = true
+                    });
+                }
+            }
+        }
+
+        private void OpenModWorkshopSteam(Mod? mod)
+        {
+            if (mod?.Directory != null && Settings.GameWorkshopPath != null)
+            {
+                //only do this if the mod is in the workshop directory (can't open browser page for local mods)
+                if (mod.Directory.IsSubPathOf(Settings.GameWorkshopPath))
+                {
+                    //normalise the directory and workshop path
+                    string normalisedDirectory = mod.Directory.Replace('/', '\\').WithEnding("\\").Trim('\\');
+                    string normalisedWorkshopPath = Settings.GameWorkshopPath.Replace('/', '\\').WithEnding("\\").Trim('\\');
+                    //grab workshop id (should be last bit of numbers from path excluding the workshop path)
+                    string workshopId = normalisedDirectory.Replace(normalisedWorkshopPath, "").Trim('\\');
+
+                    //open browser to workshop page for mod
+                    //should be default browser of user
+                    string url = $"steam://url/CommunityFilePage/{workshopId}";
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = url,
+                        UseShellExecute = true
+                    });
+                }
+            }
+        }
+
+
     }
+
+
 }

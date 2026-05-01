@@ -178,11 +178,38 @@ namespace ElinModManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Mod Folder.
+        /// </summary>
+        internal static string Label_Open_Mod_Folder {
+            get {
+                return ResourceManager.GetString("Label_Open_Mod_Folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Settings.
         /// </summary>
         internal static string Label_Open_Settings {
             get {
                 return ResourceManager.GetString("Label_Open_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Workshop Page (Browser).
+        /// </summary>
+        internal static string Label_Open_Workshop_Browser {
+            get {
+                return ResourceManager.GetString("Label_Open_Workshop_Browser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Workshop Page (Steam).
+        /// </summary>
+        internal static string Label_Open_Workshop_Steam {
+            get {
+                return ResourceManager.GetString("Label_Open_Workshop_Steam", resourceCulture);
             }
         }
         

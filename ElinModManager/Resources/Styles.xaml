@@ -433,8 +433,14 @@
                     <Setter Property="ContextMenu">
                         <Setter.Value>
                             <ContextMenu>
-                                <MenuItem Header="Open folder"
+                                <MenuItem Header="{Binding Path=[Label_Open_Mod_Folder], Source={x:Static res:LocalisationService.Instance}}"
                                           Command="{Binding PlacementTarget.Tag.OpenModFolderCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                          CommandParameter="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                                <MenuItem Header="{Binding Path=[Label_Open_Workshop_Browser], Source={x:Static res:LocalisationService.Instance}}"
+                                          Command="{Binding PlacementTarget.Tag.OpenModWorkshopBrowserCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                          CommandParameter="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                                <MenuItem Header="{Binding Path=[Label_Open_Workshop_Steam], Source={x:Static res:LocalisationService.Instance}}"
+                                          Command="{Binding PlacementTarget.Tag.OpenModWorkshopSteamCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                           CommandParameter="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
                             </ContextMenu>
                         </Setter.Value>

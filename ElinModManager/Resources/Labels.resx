@@ -174,4 +174,13 @@
   <data name="Label_Workshop_Path" xml:space="preserve">
     <value>Steam Workshop Path</value>
   </data>
+  <data name="Label_Open_Mod_Folder" xml:space="preserve">
+    <value>Open Mod Folder</value>
+  </data>
+  <data name="Label_Open_Workshop_Browser" xml:space="preserve">
+    <value>Open Workshop Page (Browser)</value>
+  </data>
+  <data name="Label_Open_Workshop_Steam" xml:space="preserve">
+    <value>Open Workshop Page (Steam)</value>
+  </data>
 </root>

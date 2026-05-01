@@ -66,6 +66,7 @@
                       >
             </MenuItem>
         </Menu>
+
         <!-- Load Order thing -->
         <Grid Margin="10, 5" VerticalAlignment="Top" Height="Auto">
             <Grid.ColumnDefinitions>
@@ -75,7 +76,10 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            
+            <!-- Active Mods-->
             <ListView ItemsSource="{Binding ActiveMods}"
+                         x:Name="ActiveModsListView"
                          Margin="10, 5"
                          Grid.Row="0"
                          Grid.Column="0"
@@ -96,9 +100,29 @@
                             Width="100"/>
                     </GridView>
                 </ListView.View>
+
+
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <!-- Expose the view model (ListView.DataContext) on the ListViewItem.Tag so the ContextMenu can reach it -->
+                        <Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ListView}}"/>
+                        <Setter Property="ContextMenu">
+                            <Setter.Value>
+                                <ContextMenu>
+                                    <MenuItem Header="Open folder"
+                                        Command="{Binding PlacementTarget.Tag.OpenModFolderCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                        CommandParameter="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                                </ContextMenu>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
 
+            <!-- Inactive Mods -->
             <ListView ItemsSource="{Binding InactiveMods}"
+                         x:Name="InactiveModsListView"
                          Margin="10, 5"
                          Grid.Row="0"
                          Grid.Column="1"
@@ -117,6 +141,21 @@
                             Width="100"/>
                     </GridView>
                 </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <!-- Expose the view model (ListView.DataContext) on the ListViewItem.Tag so the ContextMenu can reach it -->
+                        <Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ListView}}"/>
+                        <Setter Property="ContextMenu">
+                            <Setter.Value>
+                                <ContextMenu>
+                                    <MenuItem Header="Open folder"
+                        Command="{Binding PlacementTarget.Tag.OpenModFolderCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                        CommandParameter="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                                </ContextMenu>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
             </ListView>
         </Grid>
     </DockPanel>

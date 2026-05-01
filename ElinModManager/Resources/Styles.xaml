@@ -203,8 +203,80 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!-- Context Menu -->
+    <Style TargetType="ContextMenu">
+        <Setter Property="Background" Value="{StaticResource DarkBrush}"/>
+        <!-- Remove that annoying greyish icon area on left side -->
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Background="{StaticResource DarkBrush}" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Style TargetType="MenuItem">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Padding" Value="8,4"/>
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <!--
+                <Setter Property="Icon">
+                    <Setter.Value>
+                        <Rectangle Width="0" Height="0" Visibility="Collapsed"/>
+                    </Setter.Value>
+                </Setter>
+                -->
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="MenuItem">
+                            <Grid>
+                                <!-- Header -->
+                                <Border x:Name="Bd"
+                                        Background="{TemplateBinding Background}"
+                                        Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter
+                                        ContentSource="Header"
+                                        VerticalAlignment="Center"/>
+                                </Border>
+                                <!-- Submenu -->
+                                <Popup x:Name="PART_Popup"
+                                       Placement="Bottom"
+                                       AllowsTransparency="True"
+                                       Focusable="False"
+                                       IsOpen="{TemplateBinding IsSubmenuOpen}">
+                                    <Border Background="{StaticResource DarkBrush}" BorderThickness="0">
+                                        <ScrollViewer VerticalScrollBarVisibility="Disabled"
+                                                      HorizontalScrollBarVisibility="Disabled">
+                                            <ItemsPresenter/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Bd" Property="Background" Value="{StaticResource MenuHoverBrush}"/>
+                                </Trigger>
+
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="Bd" Property="Background" Value="{StaticResource MenuPressBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="0.5"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </Style.Resources>
+    </Style>
     
-    <!-- Combo Box -->
+    <!-- Combo Box (Drop down menu) -->
     <Style x:Key="DarkComboBox"
        TargetType="ComboBox">
         <Setter Property="Foreground"

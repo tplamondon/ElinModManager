@@ -28,8 +28,6 @@ First you should adjust your settings.
 
 The game path must be set before you can use the mod manager.
 
-**To see newly added mods, you must load the game once to have it add the new mods to loadorder.txt**.
-
 ![main window](Images/mainWindow.png)
 
 Pressing refresh will reorder the mods based on your current loadorder.txt file.

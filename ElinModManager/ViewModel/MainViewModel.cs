@@ -280,26 +280,23 @@ namespace ElinModManager.ViewModel
         }
         private void OpenModWorkshopBrowser(Mod? mod)
         {
-            if (mod?.Directory != null && Settings.GameWorkshopPath != null)
+            //only do this if the mod is in the workshop directory (can't open browser page for local mods)
+            if (mod?.WorkshopExists == true)
             {
-                //only do this if the mod is in the workshop directory (can't open browser page for local mods)
-                if (mod.Directory.IsSubPathOf(Settings.GameWorkshopPath))
-                {
-                    //normalise the directory and workshop path
-                    string normalisedDirectory = mod.Directory.Replace('/', '\\').WithEnding("\\").Trim('\\');
-                    string normalisedWorkshopPath = Settings.GameWorkshopPath.Replace('/', '\\').WithEnding("\\").Trim('\\');
-                    //grab workshop id (should be last bit of numbers from path excluding the workshop path)
-                    string workshopId = normalisedDirectory.Replace(normalisedWorkshopPath, "").Trim('\\');
+                //normalise the directory and workshop path
+                string normalisedDirectory = mod.Directory.Replace('/', '\\').WithEnding("\\").Trim('\\');
+                string normalisedWorkshopPath = Settings.GameWorkshopPath.Replace('/', '\\').WithEnding("\\").Trim('\\');
+                //grab workshop id (should be last bit of numbers from path excluding the workshop path)
+                string workshopId = normalisedDirectory.Replace(normalisedWorkshopPath, "").Trim('\\');
 
-                    //open browser to workshop page for mod
-                    //should be default browser of user
-                    string url = $"https://steamcommunity.com/sharedfiles/filedetails/?id={workshopId}";
-                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                    {
-                        FileName = url,
-                        UseShellExecute = true
-                    });
-                }
+                //open browser to workshop page for mod
+                //should be default browser of user
+                string url = $"https://steamcommunity.com/sharedfiles/filedetails/?id={workshopId}";
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                });
             }
         }
 

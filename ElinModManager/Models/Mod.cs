@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ElinModManager.HelperFunctions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,6 +42,17 @@ namespace ElinModManager.Models
         /// Version of mod from package.xml version attribute
         /// </summary>
         public string? Version { get; set; }
+
+        public bool WorkshopExists { 
+            get
+            {
+                if(Settings.GameWorkshopPath != null)
+                {
+                    return Directory.IsSubPathOf(Settings.GameWorkshopPath);
+                }
+                return false;
+            } 
+        }
         
     }
 }
